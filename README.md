@@ -55,7 +55,7 @@
     node.js version    : 10.19.0
     ytdl-core version  : 3.2.2
     dotenv version     : 8.2.0
-    ffmpeg             : [See doc to install](https://ffmpeg.org/)
+    ffmpeg             : [See doc to install](https://ffmpeg.org/).
 
 
 
