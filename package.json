@@ -1,0 +1,28 @@
+{
+  "name": "learn-make-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node  src/bot.js",
+    "dev": "nodemon src/bot.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "google-auth-library": "^6.0.6",
+    "googleapis": "^59.0.0",
+    "mongoose": "^5.10.6",
+    "node-opus": "^0.3.3",
+    "ytdl-core": "^3.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
