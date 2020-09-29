@@ -57,7 +57,7 @@ client.on('message', async (message) => {
         }).catch(err => console.log(err));
     }
 
-    if(message.author.bot) return;
+    if (message.author.bot) return;
 
     // If user command with prefix
     if (msg.startsWith(PREFIX)) {
@@ -81,23 +81,23 @@ client.on('message', async (message) => {
             const userId = args[0].match(numberPattern).join("");
             // Get member object
             const member = message.guild.members.cache.get(userId);
-            if(member)
-            if (member) {
-                return member
-                    .kick()
-                    .then(member => message.channel.send(`${member.user.username} Has been kicked`))
-                    .catch(err => message.channel.send("i don't have permission :( "));
-            } else {
-                return message.channel.send('That user not found');
-            }
+            if (member)
+                if (member) {
+                    return member
+                        .kick()
+                        .then(member => message.channel.send(`${member.user.username} Has been kicked`))
+                        .catch(err => message.channel.send("i don't have permission :( "));
+                } else {
+                    return message.channel.send('That user not found');
+                }
         }
 
         // CREATE ROLE
         if (CMD_NAME == "create-role") {
             const member = message.guild.members.cache.get(message.author.id);
             if (member.hasPermission("MANAGE_ROLES")) {
-                const [name,color] =  args.join(" ").split("-");
-                if(!name || !color ) return message.channel.send(`Wrong input ! ex: $create-role  <role-name>-<role-color>`);
+                const [name, color] = args.join(" ").split("-");
+                if (!name || !color) return message.channel.send(`Wrong input ! ex: $create-role  <role-name>-<role-color>`);
                 const data = await createRole(message, name, color);
                 return;
             } else {
@@ -110,14 +110,16 @@ client.on('message', async (message) => {
             const nameRole = args.join(" ");
             console.log(nameRole);
             try {
-                const role = await message.guild.roles.cache.find( role => role.name.toLowerCase() == nameRole.toLowerCase());
-                if(!role) {
+                const role = await message.guild.roles.cache.find(role => role.name.toLowerCase() == nameRole.toLowerCase());
+                if (!role) {
                     const msg = await message.channel.send('No role found!')
-                    msg.delete({ timeout: 5000 });
+                    msg.delete({
+                        timeout: 5000
+                    });
                 }
                 await role.delete('Go away');
-                await deleteRole(message,message.guild.id,role);
-            } catch(err) {
+                await deleteRole(message, message.guild.id, role);
+            } catch (err) {
                 console.log(err);
             }
             return;
@@ -180,12 +182,14 @@ client.on('message', async (message) => {
 
 
         // USE MESSAGE COLLECTOR TO INIT ROLE
-        if (CMD_NAME === "init-emote" ) {
+        if (CMD_NAME === "init-emote") {
             const member = message.guild.members.cache.get(message.author.id);
-            if(!member.hasPermission('MANAGE_ROLES')) {
+            if (!member.hasPermission('MANAGE_ROLES')) {
                 message.reply(`You don't have manage roles permission!`)
-                    .then( msg => msg.delete({ timeout: 5000}))
-                    .catch( err => console.log(err));
+                    .then(msg => msg.delete({
+                        timeout: 5000
+                    }))
+                    .catch(err => console.log(err));
             }
             const client = message.client;
             await initReact(client, message);
@@ -194,43 +198,45 @@ client.on('message', async (message) => {
 
 
         //   INIT THE LIST REACT MESSAGE
-        if( CMD_NAME === 'init-list') {
+        if (CMD_NAME === 'init-list') {
             const member = message.guild.members.cache.get(message.author.id);
-            if(!member.hasPermission('MANAGE_ROLES')) {
+            if (!member.hasPermission('MANAGE_ROLES')) {
                 message.reply(`You don't have manage roles permission!`)
-                    .then( msg => msg.delete({ timeout: 5000}))
-                    .catch( err => console.log(err));
+                    .then(msg => msg.delete({
+                        timeout: 5000
+                    }))
+                    .catch(err => console.log(err));
             }
             const messageId = args[0];
             const guildId = message.guild.id;
             try {
                 const guild = await Channels.findById(guildId);
-                if(!guild) {
+                if (!guild) {
                     const guild = new Channels({
-                        _id : guildId,
-                        listRoleId : messageId,
+                        _id: guildId,
+                        listRoleId: messageId,
                     });
                     guild.save();
                 } else {
                     await guild.updateOne({
-                        listRoleId : messageId,
+                        listRoleId: messageId,
                     });
                 }
-                return message.channel.send('Success init the role list message!')   
+                return message.channel.send('Success init the role list message!')
             } catch (error) {
-                console.log(error);   
+                console.log(error);
             }
             return;
         }
 
         // SEND ALL INIT ROLE
-        if(CMD_NAME === "list-role") {
+        if (CMD_NAME === "list-role") {
             const allRole = await getAllRole(message);
             return;
         }
 
         // GETTING HELP COMMAND
-        if(CMD_NAME === "help") {
+        if (CMD_NAME === "help") {
             message.channel.send(`
             List Command :
             $play <song title> ~ Play music from youtube
@@ -243,7 +249,7 @@ client.on('message', async (message) => {
             $init-list <Message id> ~ To init the list role message
             $gacha ~ See your lucky :)  
             $kick <User id> ~ To kick user from server ( Kick Permission needed)
-            To see more information See documentation in Link Repo nya ntar ye
+            To see more information check documentation https://github.com/Zuans/Yuuki-bot#command
             `)
             return;
         }
@@ -269,29 +275,35 @@ client.on('message', async (message) => {
 
 
 client.on('messageReactionAdd', async (reaction, user) => {
-    const { listRoleId }  = await Channels.findById(reaction.message.guild.id)
-                                .catch( err => console.log(err));
-    if(!listRoleId)return;
-    if(listRoleId == reaction.message.id) {
+    const {
+        listRoleId
+    } = await Channels.findById(reaction.message.guild.id)
+        .catch(err => console.log(err));
+    if (!listRoleId) return;
+    if (listRoleId == reaction.message.id) {
         try {
-            const { id } = await reaction.emoji;
+            const {
+                id
+            } = await reaction.emoji;
             const memberId = user.id;
             const member = await reaction.message.guild.members.cache.get(memberId);
             const data = await Channels.findOne({
-                "roles" : {
-                    $elemMatch : {
-                        emoteId : id,
+                "roles": {
+                    $elemMatch: {
+                        emoteId: id,
                     }
                 }
             });
-        const { roleId } = data.roles.find( roles => roles.emoteId == id);
-        console.log(roleId);
-        if(!roleId) return;
-        member.roles.add(roleId)
-            .then()
-            .catch( err => {
-                reaction.message.channel.send("This emote isn't init yet please init this emote first or contact admin")
-            });
+            const {
+                roleId
+            } = data.roles.find(roles => roles.emoteId == id);
+            console.log(roleId);
+            if (!roleId) return;
+            member.roles.add(roleId)
+                .then()
+                .catch(err => {
+                    reaction.message.channel.send("This emote isn't init yet please init this emote first or contact admin")
+                });
         } catch (error) {
             console.log(error);
         }
@@ -299,23 +311,29 @@ client.on('messageReactionAdd', async (reaction, user) => {
 });
 
 client.on('messageReactionRemove', async (reaction, user) => {
-    const { listRoleId }  = await Channels.findById(reaction.message.guild.id)
-                                .catch( err => console.log(err));
-    if(!listRoleId)return;
-    if(listRoleId == reaction.message.id) {
+    const {
+        listRoleId
+    } = await Channels.findById(reaction.message.guild.id)
+        .catch(err => console.log(err));
+    if (!listRoleId) return;
+    if (listRoleId == reaction.message.id) {
         try {
-            const { id } = await reaction.emoji;
+            const {
+                id
+            } = await reaction.emoji;
             const memberId = user.id;
             const member = reaction.message.guild.members.cache.get(memberId);
             const data = await Channels.findOne({
-                "roles" : {
-                $elemMatch : {
-                    emoteId : id,
+                "roles": {
+                    $elemMatch: {
+                        emoteId: id,
+                    }
                 }
-            }
-        })
-            const { roleId } = data.roles.find( roles => roles.emoteId == id);
-            if(!roleId) return;
+            })
+            const {
+                roleId
+            } = data.roles.find(roles => roles.emoteId == id);
+            if (!roleId) return;
             member.roles.remove(roleId);
         } catch (error) {
             console.log(error);
@@ -330,7 +348,7 @@ client.on('messageReactionRemoveAll', (message) => {
 
 client.on('roleDelete', async (role) => {
     const guildId = role.guild.id;
-    await deleteRole(null,guildId,role);
+    await deleteRole(null, guildId, role);
     return;
 });
 

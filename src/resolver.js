@@ -54,11 +54,14 @@ const execute = async (message, ...args) => {
     }
 
     let song;
-     
+
     try {
-        const {videoId,error} = await getVideoId(args);
+        const {
+            videoId,
+            error
+        } = await getVideoId(args);
         console.log(error);
-        if(error) {
+        if (error) {
             const msg = await message.channel.send(error);
             return;
         }
@@ -66,7 +69,7 @@ const execute = async (message, ...args) => {
         song = {
             title: songInfo.videoDetails.title,
             url: songInfo.videoDetails.video_url,
-        }   
+        }
     } catch (error) {
         await message.channel.send(error);
         console.log(error);
@@ -103,10 +106,12 @@ const execute = async (message, ...args) => {
         }
 
     } else {
-        if( serverQueue.voiceChannel.id != voiceChannel.id) {
+        if (serverQueue.voiceChannel.id != voiceChannel.id) {
             return message.channel.send('The bot already using in another channel')
-                .then( msg => msg.delete({ timeout : 5000}))
-                .catch( err => console.log(err));
+                .then(msg => msg.delete({
+                    timeout: 5000
+                }))
+                .catch(err => console.log(err));
         }
         console.log('test added');
         serverQueue.songs.push(song);
@@ -198,10 +203,10 @@ const createRole = async (message, name, color) => {
     if (roleExist) return message.channel.send('This role name already exist please use another name!');
     try {
         await message.guild.roles.create({
-           data : {
-               name : name,
-               color : color.toUpperCase(),
-           } 
+            data: {
+                name: name,
+                color: color.toUpperCase(),
+            }
         });
         return message.channel.send(`Success create role: ${name} !`);
     } catch (error) {
@@ -209,21 +214,22 @@ const createRole = async (message, name, color) => {
     }
 };
 
-const deleteRole = async(message,guildId,role) => {
+const deleteRole = async (message, guildId, role) => {
     try {
-        const data = await Channel.updateOne(
-            {_id : guildId },
-            {
-                $pull : {
-                    "roles" : {
-                        roleId : role.id,
-                    }
+        const data = await Channel.updateOne({
+            _id: guildId
+        }, {
+            $pull: {
+                "roles": {
+                    roleId: role.id,
                 }
             }
-        );
-        if(message){
+        });
+        if (message) {
             const msg = await message.channel.send(`Successfully deleted ${role.name}`);
-            msg.delete({ timeout: 5000 });
+            msg.delete({
+                timeout: 5000
+            });
         }
         return;
     } catch (err) {
@@ -233,8 +239,8 @@ const deleteRole = async(message,guildId,role) => {
 
 const getAllRole = async (message) => {
     const roles = await Channel.findById(message.guild.id)
-                        .map(data => data.roles);
-    const roleList = roles.map( data => {
+        .map(data => data.roles);
+    const roleList = roles.map(data => {
         const role = message.guild.roles.cache.get(data.roleId);
         const emote = message.guild.emojis.cache.get(data.emoteId);
         return `${role.name}-<:${emote.name}:${emote.id}>\n`;

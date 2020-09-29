@@ -61,9 +61,12 @@ var execute = function execute(message) {
       serverQueue,
       voiceChannel,
       permissions,
-      videoId,
-      songInfo,
       song,
+      _ref,
+      videoId,
+      error,
+      msg,
+      songInfo,
       queueConstruct,
       connection,
       _args = arguments;
@@ -98,23 +101,53 @@ var execute = function execute(message) {
           return _context.abrupt("return", message.channel.send("i need permissions to join your channel"));
 
         case 9:
-          _context.next = 11;
+          _context.prev = 9;
+          _context.next = 12;
           return regeneratorRuntime.awrap(getVideoId(args));
 
-        case 11:
-          videoId = _context.sent;
-          _context.next = 14;
+        case 12:
+          _ref = _context.sent;
+          videoId = _ref.videoId;
+          error = _ref.error;
+          console.log(error);
+
+          if (!error) {
+            _context.next = 21;
+            break;
+          }
+
+          _context.next = 19;
+          return regeneratorRuntime.awrap(message.channel.send(error));
+
+        case 19:
+          msg = _context.sent;
+          return _context.abrupt("return");
+
+        case 21:
+          _context.next = 23;
           return regeneratorRuntime.awrap(ytdl.getInfo(videoId));
 
-        case 14:
+        case 23:
           songInfo = _context.sent;
           song = {
             title: songInfo.videoDetails.title,
             url: songInfo.videoDetails.video_url
-          }; // check if this guild has queue ? 
+          };
+          _context.next = 32;
+          break;
 
+        case 27:
+          _context.prev = 27;
+          _context.t0 = _context["catch"](9);
+          _context.next = 31;
+          return regeneratorRuntime.awrap(message.channel.send(_context.t0));
+
+        case 31:
+          console.log(_context.t0);
+
+        case 32:
           if (serverQueue) {
-            _context.next = 35;
+            _context.next = 54;
             break;
           }
 
@@ -127,44 +160,61 @@ var execute = function execute(message) {
             playing: true
           }; // Set new guild on queue with queue as the constructor
 
-          queue.set(message.guild.id, queueConstruct); // add song to queue;
+          queue.set(message.guild.id, queueConstruct);
+          console.log('song masuk');
+          console.log(song); // add song to queue;
 
           queueConstruct.songs.push(song); // try connect to voice channel
 
-          _context.prev = 20;
-          _context.next = 23;
+          _context.prev = 38;
+          _context.next = 41;
           return regeneratorRuntime.awrap(voiceChannel.join());
 
-        case 23:
+        case 41:
           connection = _context.sent;
           queueConstruct.connection = connection;
+          console.log('coba play');
           play(message, queueConstruct.songs[0]);
-          _context.next = 33;
+          _context.next = 52;
           break;
 
-        case 28:
-          _context.prev = 28;
-          _context.t0 = _context["catch"](20);
-          console.log(_context.t0);
+        case 47:
+          _context.prev = 47;
+          _context.t1 = _context["catch"](38);
+          console.log(_context.t1);
           queue["delete"](message.guild.id);
-          return _context.abrupt("return", message.channel.send(_context.t0));
+          return _context.abrupt("return", message.channel.send(_context.t1));
 
-        case 33:
-          _context.next = 39;
+        case 52:
+          _context.next = 60;
           break;
 
-        case 35:
+        case 54:
+          if (!(serverQueue.voiceChannel.id != voiceChannel.id)) {
+            _context.next = 56;
+            break;
+          }
+
+          return _context.abrupt("return", message.channel.send('The bot already using in another channel').then(function (msg) {
+            return msg["delete"]({
+              timeout: 5000
+            });
+          })["catch"](function (err) {
+            return console.log(err);
+          }));
+
+        case 56:
           console.log('test added');
           serverQueue.songs.push(song);
           console.log(serverQueue.songs);
           return _context.abrupt("return", message.channel.send("\"".concat(song.title, "\" has been added in queue!")));
 
-        case 39:
+        case 60:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[20, 28]]);
+  }, null, null, [[9, 27], [38, 47]]);
 };
 
 var skip = function skip(message) {
@@ -348,29 +398,26 @@ var clearQueue = function clearQueue(message) {
   }
 };
 
-var createRole = function createRole(message, name, color, test) {
-  var test1, guildId, newRole, roleExist, guild, channel;
+var createRole = function createRole(message, name, color) {
+  var roleExist;
   return regeneratorRuntime.async(function createRole$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
-          test1 = message.reaction.emoji.name;
-          console.log(test1);
-          guildId = message.guild.id;
           roleExist = message.guild.roles.cache.find(function (role) {
             return role.name == name;
           });
 
           if (!roleExist) {
-            _context5.next = 6;
+            _context5.next = 3;
             break;
           }
 
           return _context5.abrupt("return", message.channel.send('This role name already exist please use another name!'));
 
-        case 6:
-          _context5.prev = 6;
-          _context5.next = 9;
+        case 3:
+          _context5.prev = 3;
+          _context5.next = 6;
           return regeneratorRuntime.awrap(message.guild.roles.create({
             data: {
               name: name,
@@ -378,65 +425,101 @@ var createRole = function createRole(message, name, color, test) {
             }
           }));
 
+        case 6:
+          return _context5.abrupt("return", message.channel.send("Success create role: ".concat(name, " !")));
+
         case 9:
-          newRole = _context5.sent;
-          _context5.next = 12;
-          return regeneratorRuntime.awrap(Channel.findById(guildId));
-
-        case 12:
-          guild = _context5.sent;
-          console.log(guild);
-
-          if (guild) {
-            _context5.next = 19;
-            break;
-          }
-
-          channel = new Channel({
-            _id: guildId,
-            roles: {
-              name: newRole.name,
-              idRole: newRole.id,
-              emoteRole: test
-            }
-          });
-          channel.save().then(function () {
-            return console.log('New Guild has been added!');
-          })["catch"](function (err) {
-            return console.log(err);
-          });
-          _context5.next = 22;
-          break;
-
-        case 19:
-          _context5.next = 21;
-          return regeneratorRuntime.awrap(guild.updateOne({
-            $push: {
-              roles: {
-                name: newRole.name,
-                idRole: newRole.id
-              }
-            }
-          }));
-
-        case 21:
-          console.log('Success push new Role to exist Guild!');
-
-        case 22:
-          _context5.next = 27;
-          break;
-
-        case 24:
-          _context5.prev = 24;
-          _context5.t0 = _context5["catch"](6);
+          _context5.prev = 9;
+          _context5.t0 = _context5["catch"](3);
           console.log(_context5.t0);
 
-        case 27:
+        case 12:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[6, 24]]);
+  }, null, null, [[3, 9]]);
+};
+
+var deleteRole = function deleteRole(message, guildId, role) {
+  var data, msg;
+  return regeneratorRuntime.async(function deleteRole$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
+          return regeneratorRuntime.awrap(Channel.updateOne({
+            _id: guildId
+          }, {
+            $pull: {
+              "roles": {
+                roleId: role.id
+              }
+            }
+          }));
+
+        case 3:
+          data = _context6.sent;
+
+          if (!message) {
+            _context6.next = 9;
+            break;
+          }
+
+          _context6.next = 7;
+          return regeneratorRuntime.awrap(message.channel.send("Successfully deleted ".concat(role.name)));
+
+        case 7:
+          msg = _context6.sent;
+          msg["delete"]({
+            timeout: 5000
+          });
+
+        case 9:
+          return _context6.abrupt("return");
+
+        case 12:
+          _context6.prev = 12;
+          _context6.t0 = _context6["catch"](0);
+          console.log(_context6.t0);
+
+        case 15:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  }, null, null, [[0, 12]]);
+};
+
+var getAllRole = function getAllRole(message) {
+  var roles, roleList, msg;
+  return regeneratorRuntime.async(function getAllRole$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.next = 2;
+          return regeneratorRuntime.awrap(Channel.findById(message.guild.id).map(function (data) {
+            return data.roles;
+          }));
+
+        case 2:
+          roles = _context7.sent;
+          roleList = roles.map(function (data) {
+            var role = message.guild.roles.cache.get(data.roleId);
+            var emote = message.guild.emojis.cache.get(data.emoteId);
+            return "".concat(role.name, "-<:").concat(emote.name, ":").concat(emote.id, ">\n");
+          }).join(" ");
+          msg = message.channel.send("All Init Roles : \n\n".concat(roleList));
+          console.log(msg);
+          return _context7.abrupt("return");
+
+        case 7:
+        case "end":
+          return _context7.stop();
+      }
+    }
+  });
 };
 
 module.exports = {
@@ -445,5 +528,7 @@ module.exports = {
   skip: skip,
   stop: stop,
   clearQueue: clearQueue,
-  createRole: createRole
+  createRole: createRole,
+  deleteRole: deleteRole,
+  getAllRole: getAllRole
 };
