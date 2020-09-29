@@ -431,7 +431,7 @@ client.on('message', function _callee2(message) {
             break;
           }
 
-          message.channel.send("\n            List Command :\n            $play <song title> ~ Play music from youtube\n            $skip ~ Skip the music\n            $stop ~ Stop the music\n            $create-role <role name>-<role color> ~ Make new role\n            $delete-role <role name> ~ Delete role\n            $list-role ~ See all init role\n            $init-emote ~ To start collect emote with role\n            $init-list <Message id> ~ To init the list role message\n            $gacha ~ See your lucky :)  \n            $kick <User id> ~ To kick user from server ( Kick Permission needed)\n            To see more information check documentation https://github.com/Zuans/Yuuki-bot#command\n            ");
+          message.channel.send("\nList Command : \n\n$play <song title> ~ Play music from youtube \n$skip ~ Skip the music \n$stop ~ Stop the music \n$create-role <role name>-<role color> ~ Make new role \n$delete-role <role name> ~ Delete role\n$list-role ~ See all init role\n$init-emote ~ To start collect emote with role \n$init-list <Message id> ~ To init the list role message \n$gacha ~ See your lucky :)  \n$kick <User id> ~ To kick user from server ( Kick Permission needed) \n\nTo see more information check documentation https://github.com/Zuans/Yuuki-bot#command\n            ");
           return _context2.abrupt("return");
 
         case 121:

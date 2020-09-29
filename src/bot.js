@@ -238,18 +238,18 @@ client.on('message', async (message) => {
         // GETTING HELP COMMAND
         if (CMD_NAME === "help") {
             message.channel.send(`
-            List Command :
-            $play <song title> ~ Play music from youtube
-            $skip ~ Skip the music
-            $stop ~ Stop the music
-            $create-role <role name>-<role color> ~ Make new role
-            $delete-role <role name> ~ Delete role
-            $list-role ~ See all init role
-            $init-emote ~ To start collect emote with role
-            $init-list <Message id> ~ To init the list role message
-            $gacha ~ See your lucky :)  
-            $kick <User id> ~ To kick user from server ( Kick Permission needed)
-            To see more information check documentation https://github.com/Zuans/Yuuki-bot#command
+List Command : \n
+$play <song title> ~ Play music from youtube 
+$skip ~ Skip the music 
+$stop ~ Stop the music 
+$create-role <role name>-<role color> ~ Make new role 
+$delete-role <role name> ~ Delete role
+$list-role ~ See all init role
+$init-emote ~ To start collect emote with role 
+$init-list <Message id> ~ To init the list role message 
+$gacha ~ See your lucky :)  
+$kick <User id> ~ To kick user from server ( Kick Permission needed) \n
+To see more information check documentation https://github.com/Zuans/Yuuki-bot#command
             `)
             return;
         }
