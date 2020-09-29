@@ -56,7 +56,7 @@ $kick ${@username} ~ To kick member from channel ( MANAGE ROLE permission requir
 > $kick @John
 
 
-## Techonologies
+## Technologies
 
 * discord.js version : 12.3.1
 * node.js version    : 10.19.0
