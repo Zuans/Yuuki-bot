@@ -1,5 +1,5 @@
 # Yuuki - Discord Bot
-Simple bot discord created with node.js,discord.js,ytdl,mongoDB  i named it because i like Yuuki Asuna from Sword art online 
+Simple bot discord created with node.js,discord.js,ytdl,mongoDB  i named it because i :heart: Yuuki Asuna from Sword art online 
 
 ## Table of content
 * [General Info](#generalinfo)
@@ -52,11 +52,11 @@ $kick ${@username} ~ To kick member from channel ( MANAGE ROLE permission requir
 
 ## Techonologies
 
-discord.js version : 12.3.1
-node.js version    : 10.19.0
-ytdl-core version  : 3.2.2
-dotenv version     : 8.2.0
-ffmpeg             : [See doc to install](https://ffmpeg.org/).
+* discord.js version : 12.3.1
+* node.js version    : 10.19.0
+* ytdl-core version  : 3.2.2
+* dotenv version     : 8.2.0
+* ffmpeg             : [See doc to install](https://ffmpeg.org/).
 
 
 
