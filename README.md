@@ -86,8 +86,8 @@ $ git clone https://github.com/Zuans/zuans-book.git
 after complete the clone the repo make file with name .env file and add follow variable at this file there 4 variable you must fill
 * DISCORD_BOT_TOKEN=${Your Discord bot token} ~ Make your own discord in and get discord bot token in [Discord developer](https://discord.com/developers/applications)
 * API_KEY=${Your Google API key} ~ For more information about Google API check [Google API](https://developers.google.com/youtube/v3/getting-started)
-* DB_NAME=${Your collection name} ~ I Make database with mongoDB atlas check [mongoDB Atlas](https://www.mongodb.com/cloud/atlas) for more infomation
-* PASSWORD=${Your password in this DB}
+* DB_URL=${Your DB url} ~ I Make database with mongoDB atlas check [mongoDB Atlas](https://www.mongodb.com/cloud/atlas) for more infomation
+
 
 after that type this command
 ```sh

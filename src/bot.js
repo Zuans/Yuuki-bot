@@ -45,7 +45,7 @@ const userReq = [];
 
 client.on('ready', async () => {
     console.log(`[${client.user.tag}] : Telah login `);
-    await connectDB(process.env.PASSWORD, process.env.DB_NAME);
+    await connectDB(process.env.DB_URL);
 })
 
 client.on('message', async (message) => {

@@ -3,9 +3,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 
-const connectDB = async (password, dbName) => {
+const connectDB = async (dbUrl) => {
     try {
-        await mongoose.connect(`mongodb+srv://juan123:${password}@cluster0.npqqt.mongodb.net/${dbName}?retryWrites=true&w=majority`, {
+        await mongoose.connect(dbUrl, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
