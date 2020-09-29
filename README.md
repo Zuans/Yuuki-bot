@@ -1,5 +1,5 @@
 # Yuuki - Discord Bot
-    Simple bot discord created with node.js,discord.js,ytdl,mongoDB  i named it because i like Yuuki Asuna from Sword art online 
+Simple bot discord created with node.js,discord.js,ytdl,mongoDB  i named it because i like Yuuki Asuna from Sword art online 
 
 ## Table of content
 * [General Info](#generalinfo)
@@ -8,7 +8,7 @@
 * [Setup](#setup)
 
 ## General Info
-    This is my simple project discord bot, this bot can play music and manage role
+This is my simple project discord bot, this bot can play music and manage role
 
 
 ## Command
@@ -29,10 +29,10 @@ $leave ~ Leave bot from voice channel
 
 ### Manage Roles
 
-$create-role <role-name>-<role-color> ~ To create role with color ( MANAGE ROLE permission required)
+$create-role ${role-name}-${role-color} ~ To create role with color ( MANAGE ROLE permission required)
 > $create-role Admin-red 
 
-$delete-role <role-name> ~ To delete role ( MANAGE ROLE permission required)
+$delete-role ${role-name} ~ To delete role ( MANAGE ROLE permission required)
 > $delete-role Admin
 
 $list-role ~ Check all init roles
@@ -43,10 +43,11 @@ $list-role ~ Check all init roles
 $init-emote ~ Start collect the emote ( MANAGE ROLE permission required)
 \* After bot send message init all roles you need you have 30 sec to collect \*
 
-$init-list <Message id> ~ To init the list role message ( MANAGE ROLE permission required)
+$init-list ${Message id} ~ To init the list role message ( MANAGE ROLE permission required)
 > $init-list 123456789101112913
 
-    $kick <User Id> ~ To kick member from channel ( MANAGE ROLE permission required)
+$kick ${@username} ~ To kick member from channel ( MANAGE ROLE permission required)
+> $kick @John
 
 
 ## Techonologies
@@ -62,17 +63,33 @@ ffmpeg             : [See doc to install](https://ffmpeg.org/).
 ## Setup
 
 first time make sure you already installed !
-ffmpeg     : [Official Website](https://ffmpeg.org/)
-node.js    : [Official Website](https://nodejs.org/en/)
-discord.js : [See documentation](https://discord.js.org/#/)
-### Optional ( You can download direct from github in .zip file)
-GIT        : [Official Website ](https://git-scm.com/)
+* ffmpeg     : [Official Website](https://ffmpeg.org/)
+* node.js    : [Official Website](https://nodejs.org/en/)
+* discord.js : [See documentation](https://discord.js.org/#/)
+* ### Optional ( You can download direct from github in .zip file)
+* GIT        : [Official Website ](https://git-scm.com/)
     
 Already install it ? all let's to clone the repo and install all package !
 open your terminal or cmd with git installed there and follow instruction below 
 ps : Don't type "$" in your terminal you can ignore it
 
-    $ git clone https://github.com/Zuans/zuans-book.git
+```sh 
+$ git clone https://github.com/Zuans/zuans-book.git 
+```
 
-    after complete the clone the repo make file with name .env file and add follow variable at this file 
-    DISCORD_BOT_TOKEN=/*Make your own discord in/*[Discord developer](https://discord.com/developers/applications)
+after complete the clone the repo make file with name .env file and add follow variable at this file there 4 variable you must fill
+* DISCORD_BOT_TOKEN=${Your Discord bot token} ~ Make your own discord in and get discord bot token in [Discord developer](https://discord.com/developers/applications)
+* API_KEY=${Your Google API key} ~ For more information about Google API check [Google API](https://developers.google.com/youtube/v3/getting-started)
+* DB_NAME=${Your collection name} ~ I Make database with mongoDB atlas check [mongoDB Atlas](https://www.mongodb.com/cloud/atlas) for more infomation
+* PASSWORD=${Your password in this DB}
+
+after that type this command
+```sh
+$ npm install
+$ npm run dev
+```
+
+#### You have something you want to ask you can contact me
+* [Facebook](https://web.facebook.com/juan.ewaldo.351)
+
+### Thanks for reading and please star my repo 
