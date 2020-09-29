@@ -60,7 +60,6 @@ const execute = async (message, ...args) => {
         console.log(error);
         if(error) {
             const msg = await message.channel.send(error);
-            msg.delete({ timeout : 5000 });
             return;
         }
         song = {
@@ -86,6 +85,8 @@ const execute = async (message, ...args) => {
         };
         // Set new guild on queue with queue as the constructor
         queue.set(message.guild.id, queueConstruct);
+        console.log('song masuk');
+        console.log(song);
         // add song to queue;
         queueConstruct.songs.push(song);
 
@@ -93,6 +94,7 @@ const execute = async (message, ...args) => {
         try {
             var connection = await voiceChannel.join();
             queueConstruct.connection = connection;
+            console.log('coba play')
             play(message, queueConstruct.songs[0]);
         } catch (error) {
             console.log(error);
