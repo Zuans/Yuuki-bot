@@ -62,14 +62,14 @@ const execute = async (message, ...args) => {
             const msg = await message.channel.send(error);
             return;
         }
+        const songInfo = await ytdl.getInfo(videoId);
         song = {
             title: songInfo.videoDetails.title,
             url: songInfo.videoDetails.video_url,
         }   
-        const songInfo = await ytdl.getInfo(videoId);
     } catch (error) {
-        const msg =  message.channel.send(error);
-        msg.delete({ timeout : 5000 });
+        await message.channel.send(error);
+        console.log(error);
     }
 
 
