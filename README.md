@@ -1,14 +1,20 @@
 # Yuuki - Discord Bot
 Simple bot discord created with node.js,discord.js,ytdl,mongoDB  i named it because i :heart: Yuuki Asuna from Sword art online 
 
+
 ## Table of content
 * [General Info](#generalinfo)
+* [Link](#link)
 * [Command](#command)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
 ## General Info
 This is my simple project discord bot, this bot can play music and manage role
+
+
+## Link
+You can add Yuuki to your server with [This Link](https://discord.com/oauth2/authorize?client_id=755771123014041602&permissions=1345682678&scope=bot)
 
 
 ## Command

@@ -68,6 +68,10 @@ client.on('message', async (message) => {
             return message.reply('Hai juga');
         }
 
+        if (CMD_NAME == "invite") {
+            return message.channel.send('https://discord.com/oauth2/authorize?client_id=755771123014041602&permissions=1345682678&scope=bot');
+        }
+
         if (CMD_NAME == "kick") {
             // Check if user have permission
             if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply("You don't have kick permission");
