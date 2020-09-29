@@ -53,12 +53,27 @@ const execute = async (message, ...args) => {
         return message.channel.send("i need permissions to join your channel");
     }
 
-    const videoId = await getVideoId(args);
-    const songInfo = await ytdl.getInfo(videoId);
-    const song = {
-        title: songInfo.videoDetails.title,
-        url: songInfo.videoDetails.video_url,
+    let song;
+     
+    try {
+        const {videoId,error} = await getVideoId(args);
+        console.log(error);
+        if(error) {
+            const msg = await message.channel.send(error);
+            msg.delete({ timeout : 5000 });
+            return;
+        }
+        song = {
+            title: songInfo.videoDetails.title,
+            url: songInfo.videoDetails.video_url,
+        }   
+        const songInfo = await ytdl.getInfo(videoId);
+    } catch (error) {
+        const msg =  message.channel.send(error);
+        msg.delete({ timeout : 5000 });
     }
+
+
     // check if this guild has queue ? 
     if (!serverQueue) {
         const queueConstruct = {

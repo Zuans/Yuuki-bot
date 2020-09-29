@@ -23,10 +23,11 @@ const getVideoId = async (params) => {
             maxResults: 1,
 
         });
-        return await items[0].id.videoId;
+        return {
+            videoId : await items[0].id.videoId
+        };
     } catch (error) {
-        console.log(error);
-        return;
+        return { error : 'music not found'}
     }
 }
 
