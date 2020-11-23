@@ -60,7 +60,6 @@ const execute = async (message, ...args) => {
             videoId,
             error
         } = await getVideoId(args);
-        console.log(error);
         if (error) {
             const msg = await message.channel.send(error);
             return;
@@ -71,8 +70,8 @@ const execute = async (message, ...args) => {
             url: songInfo.videoDetails.video_url,
         }
     } catch (error) {
-        await message.channel.send(error);
         console.log(error);
+        await message.channel.send(error);
     }
 
 

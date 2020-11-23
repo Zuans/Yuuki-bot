@@ -14,7 +14,7 @@ const ytService = google.youtube({
 const getVideoId = async (params) => {
     try {
         const {
-            data: {
+            data : {
                 items
             }
         } = await ytService.search.list({

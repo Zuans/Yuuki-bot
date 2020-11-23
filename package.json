@@ -20,7 +20,7 @@
     "googleapis": "^59.0.0",
     "mongoose": "^5.10.6",
     "node-opus": "^0.3.3",
-    "ytdl-core": "^3.2.2"
+    "ytdl-core": "^4.0.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

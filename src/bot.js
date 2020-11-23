@@ -132,7 +132,7 @@ client.on('message', async (message) => {
             // if user has already requested
             const user = userReq.find(user => user.id == message.author.id);
             if (user) {
-                const cdMinute = 5;
+                const cdMinute = 3;
                 const cdTime = user.date.getTime() < new Date().getTime() - (cdMinute * 1000 * 60);
                 if (cdTime) {
                     const {

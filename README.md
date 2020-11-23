@@ -60,7 +60,7 @@ $kick ${@username} ~ To kick member from channel ( MANAGE ROLE permission requir
 
 * discord.js version : 12.3.1
 * node.js version    : 10.19.0
-* ytdl-core version  : 3.2.2
+* ytdl-core version  : 4.0.6
 * dotenv version     : 8.2.0
 * ffmpeg             : [See doc to install](https://ffmpeg.org/).
 
